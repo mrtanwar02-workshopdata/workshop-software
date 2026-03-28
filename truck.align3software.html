@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandeep Workshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Brand: teal accent + warm amber highlight (not all-green) */
+  --accent: #0d9488;
+  --accent-dark: #0f766e;
+  --accent-light: #ccfbf1;
+  --accent-glow: rgba(13,148,136,0.22);
+  --warm: #f59e0b;
+  --warm-soft: #fffbeb;
+  --header-1: #0f172a;
+  --header-2: #1e3a5f;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-500: #64748b;
+  --slate-800: #1e293b;
+  /* Legacy names — mapped for existing inline styles */
+  --green: #0d9488;
+  --green-dark: #0f766e;
+  --green-light: #ccfbf1;
+  --green-glow: var(--accent-glow);
+  --green-soft: #f0fdfa;
+  --red: #e11d48;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.12);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(13, 148, 136, 0.09), transparent 50%),
+    radial-gradient(circle at 100% 50%, rgba(245, 158, 11, 0.06), transparent 45%),
+    linear-gradient(180deg, var(--slate-100) 0%, var(--bg) 35%, #e8eef4 100%);
+  color: var(--text);
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ─── HEADER ─── */
+.header {
+  background: linear-gradient(125deg, var(--header-1) 0%, var(--header-2) 55%, #134e6a 100%);
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.35);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid var(--warm);
+}
+
+.header-icon {
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  width: 84px;
+  height: 84px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255,255,255,0.55);
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.header-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  padding: 5px;
+  /* Thoda sharp / clear dikhne ke liye (browser support ke hisaab se) */
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.header-text h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+.header-text h1 span {
+  color: #fde68a;
+  font-weight: 700;
+}
+
+.header-text p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.02em;
+  margin-top: 2px;
+}
+
+.header-badge {
+  margin-left: auto;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.95), #d97706);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #0f172a;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.sync-pill {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #e2e8f0;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  letter-spacing: 0.02em;
+}
+
+/* ─── TABS ─── */
+.tabs {
+  display: flex;
+  gap: 8px;
+  background: rgba(255,255,255,0.85);
+  border-bottom: 1px solid var(--slate-200);
+  padding: 12px 20px 10px;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 78px;
+  z-index: 90;
+}
+
+.tab {
+  padding: 10px 18px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate-500);
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: all 0.22s ease;
+  letter-spacing: 0.01em;
+}
+
+.tab:hover { color: var(--accent-dark); background: var(--green-soft); border-color: rgba(13,148,136,0.2); }
+.tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  box-shadow: 0 6px 20px var(--accent-glow);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ─── MAIN ─── */
+.main { padding: 30px 20px; max-width: 1180px; width: 100%; margin: 0 auto; }
+
+.section { display: none; }
+.section.active { display: block; }
+
+/* ─── CARD ─── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--warm));
+  opacity: 0.85;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--slate-800);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── FORM GRID ─── */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 11px 13px;
+  border: 1.5px solid var(--slate-200);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--slate-50);
+  color: var(--text);
+  transition: 0.2s;
+  text-transform: capitalize;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  background: #fff;
+}
+
+.form-group input.error {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(229,57,53,0.12);
+}
+
+.error-msg {
+  font-size: 11px;
+  color: var(--red);
+  display: none;
+}
+.error-msg.show { display: block; }
+
+/* ─── BUTTONS ─── */
+.btn-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: white;
+  box-shadow: 0 8px 24px var(--accent-glow);
+  flex: 1;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(13, 148, 136, 0.35);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--accent-dark);
+  border: 1.5px solid var(--slate-200);
+}
+
+.btn-secondary:hover { background: var(--green-soft); border-color: var(--accent); color: var(--accent-dark); }
+
+.btn-danger {
+  background: var(--red);
+  color: white;
+  padding: 7px 14px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+  padding: 7px 14px;
+  font-size: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+/* ─── SEARCH BAR ─── */
+.search-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.search-row .form-group { flex: 1; min-width: 200px; }
+
+/* ─── STATS ─── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: linear-gradient(165deg, #fff 0%, var(--slate-50) 100%);
+  border-radius: 14px;
+  padding: 18px 16px;
+  border: 1px solid var(--slate-200);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  text-align: center;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(90deg, var(--accent), var(--warm));
+  opacity: 0.5;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.stat-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--slate-800);
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── TABLE ─── */
+.table-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  width: 100%;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  min-width: 900px;
+}
+
+thead th {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #f8fafc;
+  padding: 11px 10px;
+  text-align: left;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--slate-200);
+  white-space: nowrap;
+}
+
+tbody tr:nth-child(even) { background: var(--slate-50); }
+tbody tr:hover { background: #ecfdf5; }
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge-paid { background: #d1fae5; color: #047857; }
+.badge-unpaid { background: #ffe4e6; color: #be123c; }
+.badge-pending { background: #fef3c7; color: #b45309; }
+
+/* ─── REPORT ─── */
+.report-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.chart-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+  margin-bottom: 12px;
+}
+
+.chart-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--slate-800);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.bar-chart { display: grid; gap: 10px; }
+
+.bar-item {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.bar-label {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--slate-200);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-dark), var(--warm));
+}
+
+.bar-value {
+  font-size: 12px;
+  color: var(--slate-800);
+  font-weight: 700;
+  min-width: 72px;
+  text-align: right;
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: linear-gradient(135deg, var(--slate-800), #0f172a);
+  color: white;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.35);
+  border-left: 4px solid var(--warm);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 9999;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.error { background: var(--red); }
+
+/* ─── LOCK SCREEN ─── */
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(30, 58, 95, 0.88));
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 16px;
+}
+
+.lock-screen.show { display: flex; }
+
+.lock-card {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--slate-200);
+  border-top: 4px solid var(--warm);
+}
+
+.lock-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--slate-800);
+  margin-bottom: 6px;
+}
+
+.lock-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+/* ─── EDIT MODE BANNER ─── */
+.edit-banner {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #92400e;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
+}
+.edit-banner.show { display: flex; }
+
+/* ─── EMPTY STATE ─── */
+.empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--muted);
+}
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty p { font-size: 15px; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  html, body { min-width: 320px; }
+  .header { padding: 12px 12px; gap: 10px; flex-wrap: wrap; }
+  .header-icon { width: 68px; height: 68px; border-radius: 14px; }
+  .header-icon img { padding: 4px; }
+  .header-text { min-width: 0; flex: 1; }
+  .header-text h1 { font-size: 18px; line-height: 1.1; }
+  .header-text p { font-size: 11px; }
+  .header-badge { display: none; }
+  .sync-pill { display: none; }
+  .tabs { padding: 8px 8px 6px; overflow-x: auto; top: 66px; }
+  .tab { padding: 9px 11px; font-size: 12.5px; white-space: nowrap; }
+  .main { padding: 14px 10px; }
+  .card { padding: 14px 10px; border-radius: 12px; }
+  .card-title { font-size: 16px; margin-bottom: 14px; }
+  .form-grid { grid-template-columns: 1fr; gap: 10px; }
+  .search-row { gap: 10px; }
+  .search-row .form-group { min-width: 100%; }
+  .report-controls { grid-template-columns: 1fr; gap: 10px; }
+  .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .stat-card { padding: 10px 7px; }
+  .stat-label { font-size: 10px; letter-spacing: 0.2px; }
+  .stat-value { font-size: 18px !important; }
+  .btn-row { flex-direction: column; }
+  .btn { width: 100%; text-align: center; padding: 11px 12px; }
+  .table-wrap { border-radius: 10px; }
+  table { min-width: 680px; font-size: 11.5px; }
+  thead th { font-size: 11px; padding: 10px 8px; }
+  tbody td { padding: 8px 8px; }
+  .chart-card { padding: 10px; }
+  .chart-title { font-size: 14px; }
+  .bar-item { grid-template-columns: 1fr; gap: 6px; }
+  .bar-label { font-size: 11px; }
+  .bar-value { text-align: left; min-width: 0; font-size: 11px; }
+  .lock-card { padding: 16px; }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .header { padding: 14px 16px; gap: 12px; }
+  .header-text h1 { font-size: 22px; }
+  .tabs { top: 72px; padding: 8px 10px 6px; }
+  .tab { padding: 10px 14px; font-size: 13.5px; }
+  .main { padding: 18px 14px; }
+  .card { padding: 20px 16px; }
+  .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .report-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .btn { padding: 11px 16px; }
+  .bar-item { grid-template-columns: 130px 1fr auto; }
+  table { min-width: 820px; }
+}
+
+@media (max-width: 420px) {
+  .header { top: 0; }
+  .tabs { top: 58px; }
+  .stats-row { grid-template-columns: 1fr; }
+  .tab { font-size: 12px; padding: 8px 10px; }
+  .stat-value { font-size: 17px !important; }
+  table { min-width: 620px; }
+  .main { padding: 12px 8px; }
+  .card { padding: 12px 8px; }
+  .lock-title { font-size: 18px; }
+  .lock-sub { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-icon"><img src="logotruck.jpeg" alt="Sandeep Workshop" width="84" height="84" loading="eager" decoding="async"></div>
+  <div class="header-text">
+    <h1>SANDEEP <span>WORKSHOP</span></h1>
+    <p>Truck Alignment & Services — Job Card Management</p>
+  </div>
+  <div class="sync-pill" id="syncStatus">Sync: Idle</div>
+  <div class="header-badge" id="entryCount">0 Entries</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('entry')">📋 New Entry</div>
+  <div class="tab" onclick="switchTab('records')">📊 All Records</div>
+  <div class="tab" onclick="switchTab('search')">🔎 Search</div>
+  <div class="tab" onclick="switchTab('reports')">🧾 Reports</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ══════════ NEW ENTRY ══════════ -->
+  <div class="section active" id="tab-entry">
+
+    <div class="edit-banner" id="editBanner">
+      ✏️ Edit Mode Active — Make changes and click UPDATE
+      <button class="btn btn-secondary" style="margin-left:auto;padding:6px 14px;font-size:13px;" onclick="cancelEdit()">Cancel</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚗 Vehicle & Job Details</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date *</label>
+          <input type="date" id="date">
+          <span class="error-msg" id="err-date">Date is required</span>
+        </div>
+        <div class="form-group">
+          <label>Vehicle Number *</label>
+          <input type="text" id="vehicle" placeholder="e.g. HR 38 AB 1234" style="text-transform:uppercase">
+          <span class="error-msg" id="err-vehicle">Vehicle No. required</span>
+        </div>
+        <div class="form-group">
+          <label>Transport Name *</label>
+          <input type="text" id="transport" placeholder="Transport company name">
+          <span class="error-msg" id="err-transport">Transport name required</span>
+        </div>
+        <div class="form-group">
+          <label>Invoice No.</label>
+          <input type="number" id="invoice" placeholder="Invoice number">
+        </div>
+        <div class="form-group">
+          <label>Payment Status</label>
+          <select id="paymentStatus">
+            <option value="">— Select —</option>
+            <option value="Paid">✅ Paid</option>
+            <option value="Unpaid">❌ Unpaid</option>
+            <option value="Pending">⏳ Pending</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔧 Work Done</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Axle Alignment (count)</label>
+          <input type="number" id="work" placeholder="Number of axles" min="0">
+        </div>
+        <div class="form-group">
+          <label>Hub Greasing (count)</label>
+          <input type="number" id="greasingnumber" placeholder="Number of hubs" min="0">
+        </div>
+        <div class="form-group">
+          <label>Spare Parts Changed</label>
+          <input type="text" id="spareParts" placeholder="Part names">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💰 Amount Details</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Alignment Amount (₹)</label>
+          <input type="number" id="alignmentTotal" placeholder="0" min="0" oninput="autoTotal()">
+        </div>
+        <div class="form-group">
+          <label>Labour Amount (₹)</label>
+          <input type="number" id="labourAmount" placeholder="0" min="0" oninput="autoTotal()">
+        </div>
+        <div class="form-group">
+          <label>Spare Amount (₹)</label>
+          <input type="number" id="spareAmount" placeholder="0" min="0" oninput="autoTotal()">
+        </div>
+        <div class="form-group">
+          <label>Hub Greasing Amount (₹)</label>
+          <input type="number" id="hubgreasingamount" placeholder="0" min="0" oninput="autoTotal()">
+        </div>
+        <div class="form-group">
+          <label>Drum Amount (₹)</label>
+          <input type="number" id="drumAmount" placeholder="0" min="0" oninput="autoTotal()">
+        </div>
+        <div class="form-group">
+          <label>Star Turbo Amount (₹)</label>
+          <input type="number" id="starturbo" placeholder="0" min="0" oninput="autoTotal()">
+        </div>
+        <div class="form-group">
+          <label>⚡ TOTAL AMOUNT (₹) — Auto</label>
+          <input type="number" id="totalAmount" placeholder="Auto-calculated" style="font-weight:700;color:var(--green-dark);border-color:var(--green);" readonly>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="saveBtn" onclick="saveData()">💾 SAVE ENTRY</button>
+        <button class="btn btn-secondary" onclick="clearForm()">🗑️ CLEAR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ ALL RECORDS ══════════ -->
+  <div class="section" id="tab-records">
+    <div class="stats-row" id="statsRow"></div>
+    <div class="card" style="padding:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+        <div class="card-title" style="margin:0;border:none;padding:0">📊 All Job Entries</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" onclick="loadAllRecords()">🔄 Refresh</button>
+          <button class="btn btn-primary" style="padding:8px 14px;font-size:13px;" onclick="loadFromSheets()">☁️ Sheets se Load</button>
+          <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px;border-color:#f57f17;color:#f57f17;" onclick="migrateToSheets()">📤 Purana Data Upload</button>
+          <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" onclick="exportBackupCSV()">⬇️ Backup CSV</button>
+        </div>
+      </div>
+      <div class="search-row" style="margin-bottom:14px;">
+        <div class="form-group" style="min-width:240px;">
+          <label>Filter by Transport Name</label>
+          <input type="text" id="recordTransportFilter" placeholder="Type transport name" oninput="applyRecordsFilter()" list="transportFilterList">
+          <datalist id="transportFilterList"></datalist>
+        </div>
+        <div class="form-group" style="min-width:180px;">
+          <label>Filter by Month</label>
+          <input type="month" id="recordMonthFilter" onchange="applyRecordsFilter()">
+        </div>
+        <button class="btn btn-secondary" style="flex:0;padding:10px 18px;" onclick="clearRecordsFilter()">Clear Filter</button>
+      </div>
+      <div id="recordsCountInfo" style="font-size:12px;color:var(--muted);margin-bottom:10px;"></div>
+      <div class="table-wrap" id="allRecordsTable"><div class="empty"><div class="empty-icon">📂</div><p>No entries yet</p></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ SEARCH ══════════ -->
+  <div class="section" id="tab-search">
+    <div class="card">
+      <div class="card-title">🔎 Search Vehicle</div>
+      <div class="search-row">
+        <div class="form-group">
+          <label>Vehicle Number</label>
+          <input type="text" id="searchVehicle" placeholder="Enter vehicle number" style="text-transform:uppercase" onkeyup="if(event.key==='Enter') searchData()">
+        </div>
+        <div class="form-group">
+          <label>Payment Filter</label>
+          <select id="filterPayment">
+            <option value="">All</option>
+            <option value="Paid">Paid</option>
+            <option value="Unpaid">Unpaid</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="flex:0;padding:10px 24px;" onclick="searchData()">SEARCH</button>
+        <button class="btn btn-secondary" style="flex:0;padding:10px 18px;" onclick="clearSearch()">Clear</button>
+      </div>
+      <div class="table-wrap" id="searchResult"><div class="empty"><div class="empty-icon">🔍</div><p>Enter vehicle number to search</p></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ REPORTS ══════════ -->
+  <div class="section" id="tab-reports">
+    <div class="card">
+      <div class="card-title">🧾 Daily & Monthly Reports</div>
+
+      <div class="report-controls">
+        <div class="form-group">
+          <label>Daily Report Date</label>
+          <input type="date" id="reportDate">
+        </div>
+        <div class="form-group">
+          <label>Monthly Report (YYYY-MM)</label>
+          <input type="month" id="reportMonth">
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:0;margin-bottom:14px;">
+        <button class="btn btn-primary" style="flex:0;" onclick="loadReports()">🔄 Refresh Report</button>
+      </div>
+
+      <div class="card" style="padding:14px;margin-bottom:16px;background:linear-gradient(135deg,#f8fafc 0%,#f0fdfa 100%);">
+        <div class="card-title" style="margin-bottom:12px;">⏰ Auto Report Schedule</div>
+        <div class="schedule-grid">
+          <div class="form-group">
+            <label>Email (for reports)</label>
+            <input type="email" id="reportEmail" placeholder="owner@example.com">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number (91...)</label>
+            <input type="text" id="reportWhatsapp" placeholder="9198XXXXXXXX">
+          </div>
+          <div class="form-group">
+            <label>Daily Time</label>
+            <input type="time" id="dailyReportTime" value="20:00">
+          </div>
+          <div class="form-group">
+            <label>Monthly Day</label>
+            <input type="number" id="monthlyReportDay" min="1" max="31" value="1">
+          </div>
+          <div class="form-group">
+            <label>Monthly Time</label>
+            <input type="time" id="monthlyReportTime" value="20:30">
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top:12px;">
+          <button class="btn btn-secondary" style="flex:0;" onclick="saveReportSchedule()">💾 Save Schedule</button>
+          <button class="btn btn-primary" style="flex:0;" onclick="sendDailyReportNow()">📨 Send Daily Now</button>
+          <button class="btn btn-primary" style="flex:0;" onclick="sendMonthlyReportNow()">📨 Send Monthly Now</button>
+        </div>
+        <div id="scheduleStatus" style="font-size:12px;color:var(--muted);margin-top:8px;"></div>
+      </div>
+
+      <div class="report-grid">
+        <div>
+          <div class="card-title" style="margin-bottom:12px;">📅 Daily Summary</div>
+          <div class="stats-row" id="dailyStats"></div>
+          <div class="table-wrap" id="dailyTransportTable"></div>
+        </div>
+
+        <div>
+          <div class="card-title" style="margin-bottom:12px;">🗓️ Monthly Summary</div>
+          <div class="stats-row" id="monthlyStats"></div>
+          <div class="chart-card">
+            <div class="chart-title">📈 Monthly Category Revenue Chart</div>
+            <div id="monthlyCategoryChart"></div>
+          </div>
+          <div class="card-title" style="margin-bottom:12px;">💰 Monthly Category Revenue</div>
+          <div class="table-wrap" id="monthlyCategoryTable"></div>
+          <div class="chart-card" style="margin-top:14px;">
+            <div class="chart-title">🏢 Monthly Transport Revenue Chart</div>
+            <div id="monthlyTransportChart"></div>
+          </div>
+          <div class="card-title" style="margin:14px 0 12px;">🏢 Monthly Transport Revenue</div>
+          <div class="table-wrap" id="monthlyTransportTable"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- LOCK SCREEN -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-title">🔐 Software Lock</div>
+    <div class="lock-sub">Password daal kar software unlock karo.</div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="lockPassword" placeholder="Enter password" onkeyup="if(event.key==='Enter') unlockSoftware()">
+      <span class="error-msg" id="lockError">Wrong password, dobara try karo</span>
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="unlockSoftware()">🔓 Unlock</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ───
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbx_cilbnrWj-sk2GXcyx80a8luFniwTzTPrYAFH8wUFn0zja2mBzPttHcr12wMYEZr_/exec";
+const SHEET_TIMEOUT_MS = 15000;
+const APP_PASSWORD = "1234";
+
+// ─── UTILS ───
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+function getData() {
+  return JSON.parse(localStorage.getItem('workshop')) || [];
+}
+
+function setData(arr) {
+  localStorage.setItem('workshop', JSON.stringify(arr));
+  updateBadge();
+}
+
+function updateBadge() {
+  document.getElementById('entryCount').textContent = getData().length + ' Entries';
+}
+
+function setSyncStatus(text, isError = false) {
+  const el = document.getElementById('syncStatus');
+  if (!el) return;
+  el.textContent = text;
+  el.style.borderColor = isError ? 'rgba(255,120,120,0.6)' : 'rgba(255,255,255,0.3)';
+  el.style.background = isError ? 'rgba(190,40,40,0.35)' : 'rgba(255,255,255,0.15)';
+}
+
+function normalizeDateForInput(value) {
+  if (!value) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(value))) return String(value);
+
+  const d = new Date(value);
+  if (isNaN(d.getTime())) return String(value).slice(0, 10);
+
+  // Convert date-time values to local calendar date for input[type=date].
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
+function formatDateForDisplay(value) {
+  const iso = normalizeDateForInput(value);
+  if (!iso || iso.length < 10) return '—';
+  const parts = iso.split('-');
+  return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : iso;
+}
+
+function getTodayISO() {
+  return normalizeDateForInput(new Date());
+}
+
+function getCurrentMonth() {
+  return getTodayISO().slice(0, 7);
+}
+
+function getCurrentTimeHHMM() {
+  const d = new Date();
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
+function fetchWithTimeout(url, options = {}, timeoutMs = SHEET_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, { ...options, signal: controller.signal })
+    .finally(() => clearTimeout(timeoutId));
+}
+
+async function postToSheet(payload) {
+  // Using text/plain avoids preflight issues with many Apps Script deployments.
+  setSyncStatus('Sync: Sending...');
+  const res = await fetchWithTimeout(SHEET_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  setSyncStatus('Sync: Success');
+  return res;
+}
+
+function clearForm() {
+  document.querySelectorAll('#tab-entry input, #tab-entry select').forEach(el => el.value = '');
+  document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
+  document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+  document.getElementById('date').valueAsDate = new Date();
+}
+
+function cancelEdit() {
+  localStorage.removeItem('editId');
+  document.getElementById('editBanner').classList.remove('show');
+  document.getElementById('saveBtn').textContent = '💾 SAVE ENTRY';
+  clearForm();
+}
+
+// ─── GOOGLE SHEETS LOAD ───
+async function loadFromSheets() {
+  showToast('🔄 Google Sheets se data load ho raha hai...');
+  setSyncStatus('Sync: Loading...');
+  try {
+    const res = await fetchWithTimeout(SHEET_URL + '?ts=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    const sheetDataRaw = Array.isArray(json) ? json : (Array.isArray(json.data) ? json.data : []);
+    const sheetData = sheetDataRaw.map(item => ({
+      ...item,
+      date: normalizeDateForInput(item.date)
+    }));
+    if (sheetData.length > 0) {
+      setData(sheetData);
+      setSyncStatus('Sync: Success');
+      showToast('✅ Google Sheets se data load ho gaya! (' + sheetData.length + ' entries)');
+    } else {
+      setSyncStatus('Sync: Empty');
+      showToast('⚠️ Sheet mein koi data nahi mila', 'error');
+    }
+  } catch(err) {
+    setSyncStatus('Sync: Failed', true);
+    showToast('❌ Load fail hua — web app deploy/permissions check karo', 'error');
+  }
+}
+
+async function syncFromSheetsOnStart() {
+  try {
+    setSyncStatus('Sync: Loading...');
+    const res = await fetchWithTimeout(SHEET_URL + '?ts=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    const sheetDataRaw = Array.isArray(json) ? json : (Array.isArray(json.data) ? json.data : []);
+    const sheetData = sheetDataRaw.map(item => ({
+      ...item,
+      date: normalizeDateForInput(item.date)
+    }));
+
+    if (sheetData.length > 0) {
+      setData(sheetData);
+      setSyncStatus('Sync: Success');
+    } else {
+      setSyncStatus('Sync: Empty');
+    }
+  } catch (err) {
+    setSyncStatus('Sync: Failed', true);
+  }
+}
+
+// ─── MIGRATE LOCAL TO SHEETS ───
+async function migrateToSheets() {
+  const arr = getData();
+  if (!arr.length) { showToast('⚠️ LocalStorage mein koi data nahi', 'error'); return; }
+  if (!confirm('Tera saara LocalStorage data (' + arr.length + ' entries) Google Sheets mein upload hoga. Karna hai?')) return;
+
+  showToast('📤 Upload ho raha hai...');
+  let success = 0;
+  for (let d of arr) {
+    try {
+      await postToSheet(d);
+      success++;
+    } catch(e) {}
+  }
+  showToast('✅ ' + success + '/' + arr.length + ' entries upload ho gayi Google Sheets mein!');
+}
+
+// ─── AUTO TOTAL ───
+function autoTotal() {
+  const ids = ['alignmentTotal','labourAmount','spareAmount','hubgreasingamount','drumAmount','starturbo'];
+  let sum = 0;
+  ids.forEach(id => { sum += parseFloat(document.getElementById(id).value) || 0; });
+  document.getElementById('totalAmount').value = sum || '';
+}
+
+// ─── VALIDATE ───
+function validate() {
+  let ok = true;
+  const required = [
+    { id: 'date', err: 'err-date' },
+    { id: 'vehicle', err: 'err-vehicle' },
+    { id: 'transport', err: 'err-transport' }
+  ];
+  required.forEach(r => {
+    const el = document.getElementById(r.id);
+    const em = document.getElementById(r.err);
+    if (!el.value.trim()) {
+      el.classList.add('error'); em.classList.add('show'); ok = false;
+    } else {
+      el.classList.remove('error'); em.classList.remove('show');
+    }
+  });
+  return ok;
+}
+
+// ─── SAVE ───
+function saveData() {
+  if (!validate()) { showToast('❌ Please fill required fields', 'error'); return; }
+
+  const data = {
+    id: Date.now(),
+    date: normalizeDateForInput(document.getElementById('date').value),
+    vehicle: document.getElementById('vehicle').value.toUpperCase(),
+    transport: document.getElementById('transport').value,
+    work: document.getElementById('work').value,
+    greasingnumber: document.getElementById('greasingnumber').value,
+    spareParts: document.getElementById('spareParts').value,
+    paymentStatus: document.getElementById('paymentStatus').value,
+    invoice: document.getElementById('invoice').value,
+    alignmentTotal: document.getElementById('alignmentTotal').value,
+    labourAmount: document.getElementById('labourAmount').value,
+    spareAmount: document.getElementById('spareAmount').value,
+    hubgreasingamount: document.getElementById('hubgreasingamount').value,
+    drumAmount: document.getElementById('drumAmount').value,
+    starturbo: document.getElementById('starturbo').value,
+    totalAmount: document.getElementById('totalAmount').value
+  };
+
+  let allData = getData();
+  const editId = localStorage.getItem('editId');
+  const normalizedVehicle = data.vehicle.trim();
+
+  if (!editId) {
+    const duplicate = allData.find(item =>
+      (normalizeDateForInput(item.date) === data.date) &&
+      String(item.vehicle || '').trim().toUpperCase() === normalizedVehicle
+    );
+    if (duplicate && !confirm('Is date par is vehicle ki entry pehle se hai. Phir bhi save karna hai?')) return;
+  }
+
+  if (editId) {
+    allData = allData.map(item => item.id == editId ? { ...data, id: Number(editId) } : item);
+    localStorage.removeItem('editId');
+    document.getElementById('editBanner').classList.remove('show');
+    document.getElementById('saveBtn').textContent = '💾 SAVE ENTRY';
+    showToast('✅ Entry Updated!');
+  } else {
+    allData.push(data);
+    showToast('✅ Entry Saved!');
+    // Send to Google Sheets
+    postToSheet(data
+    ).catch(() => {
+      setSyncStatus('Sync: Failed', true);
+      showToast('⚠️ Local save ho gaya, par Sheet sync fail hua', 'error');
+    });
+  }
+
+  setData(allData);
+  clearForm();
+}
+
+// ─── TABLE BUILDER ───
+function buildTable(arr) {
+  if (!arr.length) return '<div class="empty"><div class="empty-icon">📂</div><p>No records found</p></div>';
+
+  let html = `<table>
+    <thead><tr>
+      <th>#</th><th>Date</th><th>Vehicle</th><th>Transport</th>
+      <th>Alignment</th><th>Hub Grease</th><th>Spare Parts</th>
+      <th>Payment</th><th>Invoice</th><th>Align Amt</th>
+      <th>Labour</th><th>Spare Amt</th><th>Hub Amt</th>
+      <th>Drum Amt</th><th>Star Turbo</th><th>TOTAL ₹</th>
+      <th>Actions</th>
+    </tr></thead><tbody>`;
+
+  arr.forEach((d, i) => {
+    const ps = d.paymentStatus;
+    const badgeCls = ps === 'Paid' ? 'badge-paid' : ps === 'Unpaid' ? 'badge-unpaid' : 'badge-pending';
+    html += `<tr>
+      <td style="color:var(--muted);font-size:11px">${i+1}</td>
+      <td>${formatDateForDisplay(d.date)}</td>
+      <td style="font-weight:600">${d.vehicle || '—'}</td>
+      <td>${d.transport || '—'}</td>
+      <td>${d.work || '—'}</td>
+      <td>${d.greasingnumber || '—'}</td>
+      <td>${d.spareParts || '—'}</td>
+      <td><span class="badge ${badgeCls}">${ps || '—'}</span></td>
+      <td>${d.invoice || '—'}</td>
+      <td>${d.alignmentTotal ? '₹'+Number(d.alignmentTotal).toLocaleString('en-IN') : '—'}</td>
+      <td>${d.labourAmount ? '₹'+Number(d.labourAmount).toLocaleString('en-IN') : '—'}</td>
+      <td>${d.spareAmount ? '₹'+Number(d.spareAmount).toLocaleString('en-IN') : '—'}</td>
+      <td>${d.hubgreasingamount ? '₹'+Number(d.hubgreasingamount).toLocaleString('en-IN') : '—'}</td>
+      <td>${d.drumAmount ? '₹'+Number(d.drumAmount).toLocaleString('en-IN') : '—'}</td>
+      <td>${d.starturbo ? '₹'+Number(d.starturbo).toLocaleString('en-IN') : '—'}</td>
+      <td style="font-weight:700;color:var(--green-dark)">${d.totalAmount ? '₹'+Number(d.totalAmount).toLocaleString('en-IN') : '—'}</td>
+      <td style="display:flex;gap:6px;padding:8px 6px">
+        <button class="btn btn-edit" onclick="editData(${d.id})">✏️</button>
+        <button class="btn btn-danger" onclick="deleteData(${d.id})">🗑️</button>
+      </td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  return html;
+}
+
+// ─── STATS ───
+function buildStats(arr) {
+  const total = arr.length;
+  const totalAmt = arr.reduce((s, d) => s + (parseFloat(d.totalAmount) || 0), 0);
+  const paid = arr.filter(d => d.paymentStatus === 'Paid').length;
+  const unpaid = arr.filter(d => d.paymentStatus === 'Unpaid').length;
+
+  return `
+    <div class="stat-card"><div class="stat-label">Total Jobs</div><div class="stat-value">${total}</div></div>
+    <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value" style="font-size:18px">₹${totalAmt.toLocaleString('en-IN')}</div></div>
+    <div class="stat-card"><div class="stat-label">Paid</div><div class="stat-value" style="color:#0d9488">${paid}</div></div>
+    <div class="stat-card"><div class="stat-label">Unpaid</div><div class="stat-value" style="color:var(--red)">${unpaid}</div></div>
+  `;
+}
+
+function populateTransportFilterOptions(arr) {
+  const list = document.getElementById('transportFilterList');
+  if (!list) return;
+  const names = [...new Set(arr
+    .map(d => String(d.transport || '').trim())
+    .filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b));
+  list.innerHTML = names.map(name => `<option value="${name}"></option>`).join('');
+}
+
+function buildReportStats(arr, labelText) {
+  const entries = arr.length;
+  const revenue = arr.reduce((sum, d) => sum + (parseFloat(d.totalAmount) || 0), 0);
+  const paidRevenue = arr
+    .filter(d => d.paymentStatus === 'Paid')
+    .reduce((sum, d) => sum + (parseFloat(d.totalAmount) || 0), 0);
+  const unpaidEntries = arr.filter(d => d.paymentStatus === 'Unpaid' || d.paymentStatus === 'Pending').length;
+
+  return `
+    <div class="stat-card"><div class="stat-label">${labelText} Entries</div><div class="stat-value">${entries}</div></div>
+    <div class="stat-card"><div class="stat-label">${labelText} Revenue</div><div class="stat-value" style="font-size:18px">₹${revenue.toLocaleString('en-IN')}</div></div>
+    <div class="stat-card"><div class="stat-label">Paid Revenue</div><div class="stat-value" style="font-size:18px;color:#0d9488">₹${paidRevenue.toLocaleString('en-IN')}</div></div>
+    <div class="stat-card"><div class="stat-label">Unpaid/Pending Jobs</div><div class="stat-value" style="color:var(--red)">${unpaidEntries}</div></div>
+  `;
+}
+
+function buildTransportBreakdown(arr) {
+  if (!arr.length) return '<div class="empty"><div class="empty-icon">📂</div><p>No entries in selected range</p></div>';
+
+  const map = {};
+  arr.forEach(d => {
+    const name = (d.transport || 'Unknown').trim() || 'Unknown';
+    if (!map[name]) map[name] = { count: 0, revenue: 0 };
+    map[name].count += 1;
+    map[name].revenue += parseFloat(d.totalAmount) || 0;
+  });
+
+  const rows = Object.keys(map)
+    .sort((a, b) => map[b].count - map[a].count)
+    .map((name, idx) => `
+      <tr>
+        <td>${idx + 1}</td>
+        <td style="font-weight:600">${name}</td>
+        <td>${map[name].count}</td>
+        <td style="font-weight:700;color:var(--green-dark)">₹${map[name].revenue.toLocaleString('en-IN')}</td>
+      </tr>
+    `)
+    .join('');
+
+  return `<table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Transport Name</th>
+        <th>Jobs</th>
+        <th>Revenue</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function buildMonthlyCategoryBreakdown(arr) {
+  if (!arr.length) return '<div class="empty"><div class="empty-icon">📂</div><p>No monthly data found</p></div>';
+
+  const categories = [
+    { key: 'alignmentTotal', label: 'Alignment' },
+    { key: 'hubgreasingamount', label: 'Hub Greasing' },
+    { key: 'labourAmount', label: 'Labour' },
+    { key: 'spareAmount', label: 'Spare Parts' },
+    { key: 'drumAmount', label: 'Drum' },
+    { key: 'starturbo', label: 'Star Turbo' }
+  ];
+
+  const totals = categories.map(c => {
+    const amount = arr.reduce((sum, d) => sum + (parseFloat(d[c.key]) || 0), 0);
+    return { ...c, amount };
+  });
+
+  const totalRevenue = totals.reduce((sum, item) => sum + item.amount, 0);
+
+  const rows = totals
+    .sort((a, b) => b.amount - a.amount)
+    .map((item, idx) => {
+      const share = totalRevenue ? ((item.amount / totalRevenue) * 100).toFixed(1) : '0.0';
+      return `
+        <tr>
+          <td>${idx + 1}</td>
+          <td style="font-weight:600">${item.label}</td>
+          <td style="font-weight:700;color:var(--green-dark)">₹${item.amount.toLocaleString('en-IN')}</td>
+          <td>${share}%</td>
+        </tr>
+      `;
+    })
+    .join('');
+
+  return `<table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Category</th>
+        <th>Revenue</th>
+        <th>Share</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function getMonthlyCategoryTotals(arr) {
+  const categories = [
+    { key: 'alignmentTotal', label: 'Alignment' },
+    { key: 'hubgreasingamount', label: 'Hub Greasing' },
+    { key: 'labourAmount', label: 'Labour' },
+    { key: 'spareAmount', label: 'Spare Parts' },
+    { key: 'drumAmount', label: 'Drum' },
+    { key: 'starturbo', label: 'Star Turbo' }
+  ];
+  return categories
+    .map(c => ({
+      label: c.label,
+      amount: arr.reduce((sum, d) => sum + (parseFloat(d[c.key]) || 0), 0)
+    }))
+    .sort((a, b) => b.amount - a.amount);
+}
+
+function getTransportTotals(arr) {
+  const map = {};
+  arr.forEach(d => {
+    const name = (d.transport || 'Unknown').trim() || 'Unknown';
+    if (!map[name]) map[name] = 0;
+    map[name] += parseFloat(d.totalAmount) || 0;
+  });
+  return Object.keys(map)
+    .map(name => ({ label: name, amount: map[name] }))
+    .sort((a, b) => b.amount - a.amount);
+}
+
+function buildBarChart(items) {
+  if (!items.length) return '<div class="empty"><div class="empty-icon">📊</div><p>No chart data</p></div>';
+  const max = Math.max(...items.map(i => i.amount), 0);
+  return `<div class="bar-chart">${
+    items.map(item => {
+      const width = max > 0 ? ((item.amount / max) * 100).toFixed(1) : '0';
+      return `
+        <div class="bar-item">
+          <div class="bar-label" title="${item.label}">${item.label}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${width}%"></div></div>
+          <div class="bar-value">₹${item.amount.toLocaleString('en-IN')}</div>
+        </div>
+      `;
+    }).join('')
+  }</div>`;
+}
+
+// ─── LOAD ALL ───
+function loadAllRecords() {
+  const arr = getData().sort((a, b) => new Date(normalizeDateForInput(b.date)) - new Date(normalizeDateForInput(a.date)));
+  populateTransportFilterOptions(arr);
+  const q = String(document.getElementById('recordTransportFilter')?.value || '').trim().toLowerCase();
+  const month = String(document.getElementById('recordMonthFilter')?.value || '').trim();
+
+  let filtered = month
+    ? arr.filter(d => normalizeDateForInput(d.date).slice(0, 7) === month)
+    : arr;
+
+  if (q) {
+    filtered = filtered.filter(d => String(d.transport || '').toLowerCase().includes(q));
+  }
+
+  const countInfo = document.getElementById('recordsCountInfo');
+  if (countInfo) {
+    const monthText = month ? `Month: ${month}` : 'All months';
+    countInfo.textContent = `${monthText} | Showing ${filtered.length} entries`;
+  }
+
+  document.getElementById('statsRow').innerHTML = buildStats(filtered);
+  document.getElementById('allRecordsTable').innerHTML = buildTable(filtered);
+}
+
+function applyRecordsFilter() {
+  loadAllRecords();
+}
+
+function clearRecordsFilter() {
+  const el = document.getElementById('recordTransportFilter');
+  if (el) el.value = '';
+  const monthEl = document.getElementById('recordMonthFilter');
+  if (monthEl) monthEl.value = getCurrentMonth();
+  loadAllRecords();
+}
+
+function loadReports() {
+  const reportDate = document.getElementById('reportDate').value || getTodayISO();
+  const reportMonth = document.getElementById('reportMonth').value || getCurrentMonth();
+  const all = getData();
+
+  const dailyArr = all.filter(d => normalizeDateForInput(d.date) === reportDate);
+  const monthlyArr = all.filter(d => normalizeDateForInput(d.date).slice(0, 7) === reportMonth);
+
+  document.getElementById('dailyStats').innerHTML = buildReportStats(dailyArr, 'Daily');
+  document.getElementById('dailyTransportTable').innerHTML = buildTransportBreakdown(dailyArr);
+
+  document.getElementById('monthlyStats').innerHTML = buildReportStats(monthlyArr, 'Monthly');
+  document.getElementById('monthlyCategoryChart').innerHTML = buildBarChart(getMonthlyCategoryTotals(monthlyArr));
+  document.getElementById('monthlyCategoryTable').innerHTML = buildMonthlyCategoryBreakdown(monthlyArr);
+  document.getElementById('monthlyTransportChart').innerHTML = buildBarChart(getTransportTotals(monthlyArr).slice(0, 10));
+  document.getElementById('monthlyTransportTable').innerHTML = buildTransportBreakdown(monthlyArr);
+}
+
+function getScheduleConfig() {
+  return JSON.parse(localStorage.getItem('reportSchedule') || '{}');
+}
+
+function saveReportSchedule() {
+  const cfg = {
+    email: String(document.getElementById('reportEmail').value || '').trim(),
+    whatsapp: String(document.getElementById('reportWhatsapp').value || '').trim().replace(/\D/g, ''),
+    dailyTime: document.getElementById('dailyReportTime').value || '20:00',
+    monthlyDay: Math.min(31, Math.max(1, Number(document.getElementById('monthlyReportDay').value || 1))),
+    monthlyTime: document.getElementById('monthlyReportTime').value || '20:30',
+    lastDailySent: getScheduleConfig().lastDailySent || '',
+    lastMonthlySent: getScheduleConfig().lastMonthlySent || ''
+  };
+  localStorage.setItem('reportSchedule', JSON.stringify(cfg));
+  document.getElementById('scheduleStatus').textContent = `Saved | Daily ${cfg.dailyTime} | Monthly ${cfg.monthlyDay} @ ${cfg.monthlyTime}`;
+  showToast('✅ Report schedule saved');
+}
+
+function loadReportScheduleUI() {
+  const cfg = getScheduleConfig();
+  document.getElementById('reportEmail').value = cfg.email || '';
+  document.getElementById('reportWhatsapp').value = cfg.whatsapp || '';
+  document.getElementById('dailyReportTime').value = cfg.dailyTime || '20:00';
+  document.getElementById('monthlyReportDay').value = cfg.monthlyDay || 1;
+  document.getElementById('monthlyReportTime').value = cfg.monthlyTime || '20:30';
+  document.getElementById('scheduleStatus').textContent = cfg.dailyTime
+    ? `Active | Daily ${cfg.dailyTime} | Monthly ${cfg.monthlyDay || 1} @ ${cfg.monthlyTime || '20:30'}`
+    : 'No schedule saved yet';
+}
+
+function composeDailyReportText(dateIso) {
+  const arr = getData().filter(d => normalizeDateForInput(d.date) === dateIso);
+  const revenue = arr.reduce((sum, d) => sum + (parseFloat(d.totalAmount) || 0), 0);
+  const byTransport = {};
+  arr.forEach(d => {
+    const name = (d.transport || 'Unknown').trim() || 'Unknown';
+    byTransport[name] = (byTransport[name] || 0) + 1;
+  });
+  const transports = Object.keys(byTransport).length
+    ? Object.keys(byTransport).map(name => `${name}: ${byTransport[name]}`).join(', ')
+    : 'No entries';
+  return `Daily Report (${formatDateForDisplay(dateIso)})%0ATotal Entries: ${arr.length}%0ATotal Revenue: ₹${revenue.toLocaleString('en-IN')}%0ATransports: ${transports}`;
+}
+
+function composeMonthlyReportText(monthIso) {
+  const arr = getData().filter(d => normalizeDateForInput(d.date).slice(0, 7) === monthIso);
+  const revenue = arr.reduce((sum, d) => sum + (parseFloat(d.totalAmount) || 0), 0);
+  const categoryTotal = {
+    alignment: arr.reduce((s, d) => s + (parseFloat(d.alignmentTotal) || 0), 0),
+    labour: arr.reduce((s, d) => s + (parseFloat(d.labourAmount) || 0), 0),
+    hub: arr.reduce((s, d) => s + (parseFloat(d.hubgreasingamount) || 0), 0),
+    spare: arr.reduce((s, d) => s + (parseFloat(d.spareAmount) || 0), 0),
+    drum: arr.reduce((s, d) => s + (parseFloat(d.drumAmount) || 0), 0),
+    turbo: arr.reduce((s, d) => s + (parseFloat(d.starturbo) || 0), 0)
+  };
+  return `Monthly Report (${monthIso})%0ATotal Entries: ${arr.length}%0ATotal Revenue: ₹${revenue.toLocaleString('en-IN')}%0AAlignment: ₹${categoryTotal.alignment.toLocaleString('en-IN')}%0ALabour: ₹${categoryTotal.labour.toLocaleString('en-IN')}%0AHub Greasing: ₹${categoryTotal.hub.toLocaleString('en-IN')}%0ASpare: ₹${categoryTotal.spare.toLocaleString('en-IN')}%0ADrum: ₹${categoryTotal.drum.toLocaleString('en-IN')}%0AStar Turbo: ₹${categoryTotal.turbo.toLocaleString('en-IN')}`;
+}
+
+async function pushReportToServer(type, plainText) {
+  const cfg = getScheduleConfig();
+  const payload = {
+    action: 'sendReport',
+    reportType: type,
+    email: cfg.email || '',
+    whatsapp: cfg.whatsapp || '',
+    text: decodeURIComponent(plainText)
+  };
+  const res = await fetchWithTimeout(SHEET_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+}
+
+function sendDailyReportNow() {
+  const dateIso = document.getElementById('reportDate').value || getTodayISO();
+  const msg = composeDailyReportText(dateIso);
+  const cfg = getScheduleConfig();
+  if (cfg.whatsapp) window.open(`https://wa.me/${cfg.whatsapp}?text=${msg}`, '_blank');
+  if (cfg.email) window.open(`mailto:${cfg.email}?subject=Daily Workshop Report&body=${msg}`, '_blank');
+  pushReportToServer('daily', msg).catch(() => {});
+  showToast('✅ Daily report triggered');
+}
+
+function sendMonthlyReportNow() {
+  const monthIso = document.getElementById('reportMonth').value || getCurrentMonth();
+  const msg = composeMonthlyReportText(monthIso);
+  const cfg = getScheduleConfig();
+  if (cfg.whatsapp) window.open(`https://wa.me/${cfg.whatsapp}?text=${msg}`, '_blank');
+  if (cfg.email) window.open(`mailto:${cfg.email}?subject=Monthly Workshop Report&body=${msg}`, '_blank');
+  pushReportToServer('monthly', msg).catch(() => {});
+  showToast('✅ Monthly report triggered');
+}
+
+function maybeRunScheduledReports() {
+  const cfg = getScheduleConfig();
+  if (!cfg.dailyTime && !cfg.monthlyTime) return;
+  const nowTime = getCurrentTimeHHMM();
+  const todayIso = getTodayISO();
+  const currentMonth = getCurrentMonth();
+  const todayDate = Number(todayIso.slice(8, 10));
+
+  if (cfg.dailyTime && nowTime === cfg.dailyTime && cfg.lastDailySent !== todayIso) {
+    const msg = composeDailyReportText(todayIso);
+    pushReportToServer('daily', msg).catch(() => {});
+    cfg.lastDailySent = todayIso;
+    localStorage.setItem('reportSchedule', JSON.stringify(cfg));
+    setSyncStatus('Sync: Daily Report Sent');
+  }
+
+  if (cfg.monthlyTime && nowTime === cfg.monthlyTime && todayDate === Number(cfg.monthlyDay || 1) && cfg.lastMonthlySent !== currentMonth) {
+    const msg = composeMonthlyReportText(currentMonth);
+    pushReportToServer('monthly', msg).catch(() => {});
+    cfg.lastMonthlySent = currentMonth;
+    localStorage.setItem('reportSchedule', JSON.stringify(cfg));
+    setSyncStatus('Sync: Monthly Report Sent');
+  }
+}
+
+function startReportScheduler() {
+  setInterval(maybeRunScheduledReports, 60000);
+}
+
+function exportBackupCSV() {
+  const arr = getData();
+  if (!arr.length) { showToast('⚠️ Backup ke liye data nahi hai', 'error'); return; }
+
+  const headers = [
+    'id','date','vehicle','transport','work','greasingnumber','spareParts','paymentStatus',
+    'invoice','alignmentTotal','labourAmount','spareAmount','hubgreasingamount','drumAmount','starturbo','totalAmount'
+  ];
+
+  const escapeCSV = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+  const lines = [headers.join(',')];
+  arr.forEach(item => {
+    lines.push(headers.map(h => escapeCSV(item[h])).join(','));
+  });
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `workshop-backup-${getTodayISO()}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
+  showToast('✅ Backup CSV download ho gaya');
+}
+
+// ─── SEARCH ───
+function searchData() {
+  const q = document.getElementById('searchVehicle').value.trim().toUpperCase();
+  const pf = document.getElementById('filterPayment').value;
+  let arr = getData();
+
+  if (q) arr = arr.filter(d => String(d.vehicle || '').toUpperCase().includes(q));
+  if (pf) arr = arr.filter(d => d.paymentStatus === pf);
+
+  if (!q && !pf) {
+    document.getElementById('searchResult').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>Vehicle number ya payment filter choose karo</p></div>';
+    return;
+  }
+
+  arr.sort((a, b) => new Date(normalizeDateForInput(b.date)) - new Date(normalizeDateForInput(a.date)));
+  document.getElementById('searchResult').innerHTML = buildTable(arr);
+}
+
+function clearSearch() {
+  document.getElementById('searchVehicle').value = '';
+  document.getElementById('filterPayment').value = '';
+  document.getElementById('searchResult').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>Enter vehicle number to search</p></div>';
+}
+
+// ─── EDIT ───
+function editData(id) {
+  const allData = getData();
+  const d = allData.find(item => item.id == id);
+  if (!d) return;
+
+  document.getElementById('date').value = normalizeDateForInput(d.date);
+  document.getElementById('vehicle').value = d.vehicle;
+  document.getElementById('transport').value = d.transport;
+  document.getElementById('work').value = d.work;
+  document.getElementById('greasingnumber').value = d.greasingnumber;
+  document.getElementById('spareParts').value = d.spareParts;
+  document.getElementById('paymentStatus').value = d.paymentStatus;
+  document.getElementById('invoice').value = d.invoice;
+  document.getElementById('alignmentTotal').value = d.alignmentTotal;
+  document.getElementById('labourAmount').value = d.labourAmount;
+  document.getElementById('spareAmount').value = d.spareAmount;
+  document.getElementById('hubgreasingamount').value = d.hubgreasingamount;
+  document.getElementById('drumAmount').value = d.drumAmount;
+  document.getElementById('starturbo').value = d.starturbo;
+  document.getElementById('totalAmount').value = d.totalAmount;
+
+  localStorage.setItem('editId', id);
+  document.getElementById('editBanner').classList.add('show');
+  document.getElementById('saveBtn').textContent = '✅ UPDATE ENTRY';
+  switchTab('entry');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── DELETE ───
+function deleteData(id) {
+  if (!confirm('Are you sure you want to delete this entry?')) return;
+  let arr = getData().filter(item => item.id != id);
+  setData(arr);
+  showToast('🗑️ Entry Deleted');
+  loadAllRecords();
+  searchData();
+}
+
+// ─── TABS ───
+function switchTab(name) {
+  const idx = ['entry','records','search','reports'].indexOf(name);
+  if (idx < 0) return;
+
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+
+  if (name === 'records') loadAllRecords();
+  if (name === 'reports') loadReports();
+}
+
+function unlockSoftware() {
+  const passEl = document.getElementById('lockPassword');
+  const errEl = document.getElementById('lockError');
+  if (passEl.value === APP_PASSWORD) {
+    sessionStorage.setItem('workshop_unlocked', '1');
+    document.getElementById('lockScreen').classList.remove('show');
+    errEl.classList.remove('show');
+    passEl.value = '';
+    showToast('✅ Software unlocked');
+    return;
+  }
+  errEl.classList.add('show');
+}
+
+function initLock() {
+  if (sessionStorage.getItem('workshop_unlocked') === '1') return;
+  const lock = document.getElementById('lockScreen');
+  lock.classList.add('show');
+  setTimeout(() => {
+    const passEl = document.getElementById('lockPassword');
+    if (passEl) passEl.focus();
+  }, 100);
+}
+
+// ─── INIT ───
+updateBadge();
+document.getElementById('date').valueAsDate = new Date();
+document.getElementById('reportDate').value = getTodayISO();
+document.getElementById('reportMonth').value = getCurrentMonth();
+document.getElementById('recordMonthFilter').value = getCurrentMonth();
+initLock();
+syncFromSheetsOnStart();
+loadReportScheduleUI();
+startReportScheduler();
+</script>
+</body>
+</html>
