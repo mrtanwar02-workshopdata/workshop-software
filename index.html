@@ -860,6 +860,11 @@ tbody tr:hover { background: #ecfdf5; }
           <input type="text" id="searchVehicle" placeholder="Enter vehicle number" style="text-transform:uppercase" onkeyup="if(event.key==='Enter') searchData()">
         </div>
         <div class="form-group">
+          <label>Transport Name</label>
+          <input type="text" id="searchTransport" placeholder="Enter transport name" list="searchTransportList" onkeyup="if(event.key==='Enter') searchData()">
+          <datalist id="searchTransportList"></datalist>
+        </div>
+        <div class="form-group">
           <label>Payment Filter</label>
           <select id="filterPayment">
             <option value="">All</option>
@@ -996,6 +1001,7 @@ function getData() {
 function setData(arr) {
   localStorage.setItem('workshop', JSON.stringify(arr));
   updateBadge();
+  populateTransportFilterOptions(arr);
 }
 
 function updateBadge() {
@@ -1288,13 +1294,15 @@ function buildStats(arr) {
 }
 
 function populateTransportFilterOptions(arr) {
-  const list = document.getElementById('transportFilterList');
-  if (!list) return;
   const names = [...new Set(arr
     .map(d => String(d.transport || '').trim())
     .filter(Boolean))]
     .sort((a, b) => a.localeCompare(b));
-  list.innerHTML = names.map(name => `<option value="${name}"></option>`).join('');
+  const html = names.map(name => `<option value="${name}"></option>`).join('');
+  const searchList = document.getElementById('searchTransportList');
+  const recordList = document.getElementById('transportFilterList');
+  if (searchList) searchList.innerHTML = html;
+  if (recordList) recordList.innerHTML = html;
 }
 
 function buildReportStats(arr, labelText) {
@@ -1651,14 +1659,16 @@ function exportBackupCSV() {
 // ─── SEARCH ───
 function searchData() {
   const q = document.getElementById('searchVehicle').value.trim().toUpperCase();
+  const transportFilter = document.getElementById('searchTransport').value.trim().toLowerCase();
   const pf = document.getElementById('filterPayment').value;
   let arr = getData();
 
   if (q) arr = arr.filter(d => String(d.vehicle || '').toUpperCase().includes(q));
+  if (transportFilter) arr = arr.filter(d => String(d.transport || '').toLowerCase().includes(transportFilter));
   if (pf) arr = arr.filter(d => d.paymentStatus === pf);
 
-  if (!q && !pf) {
-    document.getElementById('searchResult').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>Vehicle number ya payment filter choose karo</p></div>';
+  if (!q && !transportFilter && !pf) {
+    document.getElementById('searchResult').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>Vehicle number, transport name ya payment filter choose karo</p></div>';
     return;
   }
 
@@ -1668,8 +1678,9 @@ function searchData() {
 
 function clearSearch() {
   document.getElementById('searchVehicle').value = '';
+  document.getElementById('searchTransport').value = '';
   document.getElementById('filterPayment').value = '';
-  document.getElementById('searchResult').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>Enter vehicle number to search</p></div>';
+  document.getElementById('searchResult').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>Enter vehicle number or transport name to search</p></div>';
 }
 
 // ─── EDIT ───
@@ -1752,6 +1763,7 @@ function initLock() {
 
 // ─── INIT ───
 updateBadge();
+populateTransportFilterOptions(getData());
 document.getElementById('date').valueAsDate = new Date();
 document.getElementById('reportDate').value = getTodayISO();
 document.getElementById('reportMonth').value = getCurrentMonth();
